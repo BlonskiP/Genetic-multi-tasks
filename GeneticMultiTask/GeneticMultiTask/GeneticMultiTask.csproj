@@ -46,14 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolverView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolverView.Designer.cs">
+      <DependentUpon>SolverView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolverViewController.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +76,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MultiTask\MultiTask.csproj">
+      <Project>{648c8a0e-6e51-472e-8019-3a5bdff1f202}</Project>
+      <Name>MultiTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{f144b5d9-5de8-4a3d-b497-bded7099c306}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingleTask\SingleTask.csproj">
+      <Project>{f4964817-a44e-47cc-8d74-72a12d7a2caf}</Project>
+      <Name>SingleTask</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{648C8A0E-6E51-472E-8019-3A5BDFF1F202}</ProjectGuid>
+    <ProjectGuid>{F144B5D9-5DE8-4A3D-B497-BDED7099C306}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MultiTask</RootNamespace>
-    <AssemblyName>MultiTask</AssemblyName>
+    <RootNamespace>Shared</RootNamespace>
+    <AssemblyName>Shared</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,13 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractClasses\CrossoverType.cs" />
+    <Compile Include="AbstractClasses\GeneticSolver.cs" />
+    <Compile Include="AbstractClasses\MutationType.cs" />
+    <Compile Include="AbstractClasses\SelectionType.cs" />
+    <Compile Include="Entities\AdjacencyMatrix.cs" />
+    <Compile Include="Entities\Candidate.cs" />
+    <Compile Include="Entities\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Shared.csproj">
-      <Project>{f144b5d9-5de8-4a3d-b497-bded7099c306}</Project>
-      <Name>Shared</Name>
-    </ProjectReference>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

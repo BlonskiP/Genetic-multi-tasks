@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace GeneticMultiTask
 {
-    public partial class Form1 : Form
+    public partial class SolverView : Form
     {
-        public Form1()
+        SolverViewController controller;
+        public SolverView()
         {
-            InitializeComponent();
+            controller = new SolverViewController();
+            InitializeComponent();      
         }
     }
 }
