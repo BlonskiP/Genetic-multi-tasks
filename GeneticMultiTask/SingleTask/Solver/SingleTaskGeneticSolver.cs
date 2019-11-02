@@ -16,6 +16,7 @@ namespace SingleTask.Solver
     {
         public SingleTaskGeneticSolver(AdjacencyMatrix matrix, MutationType mutation, CrossoverType crossover, SelectionType selectionType, int populationSize, int MaxTime)
         {
+            this.SolverTitle = "Single Thread Solver";
             this.crossover = crossover;
             this.matrix = matrix;
             this.mutation = mutation;
@@ -66,7 +67,6 @@ namespace SingleTask.Solver
             result.bestResult = bestCandidate;
             Console.WriteLine("INFO FROM" + result.measureName);
             Console.WriteLine("Genetic algorithm ended: Best candidate= " + bestCandidate.fitness + " TIME: " +time.ElapsedMilliseconds +"Time on result:" +result.time);
-           
             return result;
         }
 

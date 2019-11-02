@@ -21,7 +21,7 @@ namespace Shared.AbstractClasses
 
         public Stopwatch time;
         public Random rnd;
-
+        public string SolverTitle;
         public Result result;
         public Candidate bestCandidate;
         public List<Candidate> results;

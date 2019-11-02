@@ -11,12 +11,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using LiveCharts.WinForms; //the WinForm wrappers
+using LiveCharts; //Core of the library
+using System.Threading;
 
 namespace GeneticMultiTask
 {
     class SolverViewController
     {
         SolverView View;
+        Form charts;
         public static XDocument tspXmlFile;
         GeneticSolver solverSingleThread;
         GeneticSolver solverMultiThread;
@@ -52,14 +56,10 @@ namespace GeneticMultiTask
             var tasks = new List<Task<Result>>();
             foreach (var solver in listTask)
                 tasks.Add(Task.Factory.StartNew<Result>(() => solver.Solve()));
-            ClockDefender(tasks);
-            Task.WaitAll(tasks.ToArray());
-            foreach (var item in tasks)
-            {
-                item.Result.ToFile();
-            }
-            listTask.Clear();
+            View.solvers = listTask.ToArray();
+            View.RunChart();
         }
+
         private void ClockDefender(Object data)
         {
             List<Task<Result>> taskList = (List<Task<Result>>)data;

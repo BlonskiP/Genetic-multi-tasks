@@ -49,6 +49,7 @@
             this.tbxTime = new System.Windows.Forms.TextBox();
             this.btnTspLoad = new System.Windows.Forms.Button();
             this.lblFileName = new System.Windows.Forms.Label();
+            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.SuspendLayout();
             // 
             // chkSingleThreadEnable
@@ -240,11 +241,20 @@
             this.lblFileName.TabIndex = 22;
             this.lblFileName.Text = "brak załadowanego pliku";
             // 
+            // cartesianChart1
+            // 
+            this.cartesianChart1.Location = new System.Drawing.Point(12, 146);
+            this.cartesianChart1.Name = "cartesianChart1";
+            this.cartesianChart1.Size = new System.Drawing.Size(629, 403);
+            this.cartesianChart1.TabIndex = 23;
+            this.cartesianChart1.Text = "cartesianChart1";
+            // 
             // SolverView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(643, 141);
+            this.ClientSize = new System.Drawing.Size(643, 555);
+            this.Controls.Add(this.cartesianChart1);
             this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.btnTspLoad);
             this.Controls.Add(this.tbxTime);
@@ -296,5 +306,6 @@
         public System.Windows.Forms.TextBox tbxTime;
         public System.Windows.Forms.Button btnTspLoad;
         public System.Windows.Forms.Label lblFileName;
+        private LiveCharts.WinForms.CartesianChart cartesianChart1;
     }
 }
