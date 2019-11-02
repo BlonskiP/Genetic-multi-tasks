@@ -15,8 +15,18 @@ namespace GeneticMultiTask
         SolverViewController controller;
         public SolverView()
         {
-            controller = new SolverViewController();
+            controller = new SolverViewController(this);
             InitializeComponent();      
+        }
+
+        private void btnTspLoad_Click(object sender, EventArgs e)
+        {
+            controller.loadTSPfile();
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            controller.RunSolution();
         }
     }
 }

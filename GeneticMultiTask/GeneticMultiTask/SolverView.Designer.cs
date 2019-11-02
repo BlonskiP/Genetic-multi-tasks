@@ -28,12 +28,273 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.chkSingleThreadEnable = new System.Windows.Forms.CheckBox();
+            this.chkMultiThreadEnable = new System.Windows.Forms.CheckBox();
+            this.lblMutationType = new System.Windows.Forms.Label();
+            this.lblCrossoverType = new System.Windows.Forms.Label();
+            this.lblSelectionType = new System.Windows.Forms.Label();
+            this.cbxMutationType = new System.Windows.Forms.ComboBox();
+            this.cbxCrossoverType = new System.Windows.Forms.ComboBox();
+            this.cbxSelectionType = new System.Windows.Forms.ComboBox();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbxMutationChance = new System.Windows.Forms.TextBox();
+            this.tbxCrossoverChance = new System.Windows.Forms.TextBox();
+            this.tbxSelectionSize = new System.Windows.Forms.TextBox();
+            this.lblPopulationSize = new System.Windows.Forms.Label();
+            this.tbxPopulationSize = new System.Windows.Forms.TextBox();
+            this.lblTime = new System.Windows.Forms.Label();
+            this.tbxTime = new System.Windows.Forms.TextBox();
+            this.btnTspLoad = new System.Windows.Forms.Button();
+            this.lblFileName = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // chkSingleThreadEnable
+            // 
+            this.chkSingleThreadEnable.AutoSize = true;
+            this.chkSingleThreadEnable.Location = new System.Drawing.Point(519, 49);
+            this.chkSingleThreadEnable.Name = "chkSingleThreadEnable";
+            this.chkSingleThreadEnable.Size = new System.Drawing.Size(64, 17);
+            this.chkSingleThreadEnable.TabIndex = 0;
+            this.chkSingleThreadEnable.Text = "1 wątek";
+            this.chkSingleThreadEnable.UseVisualStyleBackColor = true;
+            // 
+            // chkMultiThreadEnable
+            // 
+            this.chkMultiThreadEnable.AutoSize = true;
+            this.chkMultiThreadEnable.Location = new System.Drawing.Point(519, 72);
+            this.chkMultiThreadEnable.Name = "chkMultiThreadEnable";
+            this.chkMultiThreadEnable.Size = new System.Drawing.Size(80, 17);
+            this.chkMultiThreadEnable.TabIndex = 1;
+            this.chkMultiThreadEnable.Text = "multi thread";
+            this.chkMultiThreadEnable.UseVisualStyleBackColor = true;
+            // 
+            // lblMutationType
+            // 
+            this.lblMutationType.AutoSize = true;
+            this.lblMutationType.Location = new System.Drawing.Point(43, 12);
+            this.lblMutationType.Name = "lblMutationType";
+            this.lblMutationType.Size = new System.Drawing.Size(64, 13);
+            this.lblMutationType.TabIndex = 2;
+            this.lblMutationType.Text = "Typ mutatcji";
+            // 
+            // lblCrossoverType
+            // 
+            this.lblCrossoverType.AutoSize = true;
+            this.lblCrossoverType.Location = new System.Drawing.Point(23, 36);
+            this.lblCrossoverType.Name = "lblCrossoverType";
+            this.lblCrossoverType.Size = new System.Drawing.Size(86, 13);
+            this.lblCrossoverType.TabIndex = 3;
+            this.lblCrossoverType.Text = "Typ krzyżowania";
+            // 
+            // lblSelectionType
+            // 
+            this.lblSelectionType.AutoSize = true;
+            this.lblSelectionType.Location = new System.Drawing.Point(43, 66);
+            this.lblSelectionType.Name = "lblSelectionType";
+            this.lblSelectionType.Size = new System.Drawing.Size(65, 13);
+            this.lblSelectionType.TabIndex = 4;
+            this.lblSelectionType.Text = "Typ Selekcji";
+            // 
+            // cbxMutationType
+            // 
+            this.cbxMutationType.FormattingEnabled = true;
+            this.cbxMutationType.Items.AddRange(new object[] {
+            "Inwersja",
+            "Transport"});
+            this.cbxMutationType.Location = new System.Drawing.Point(113, 3);
+            this.cbxMutationType.Name = "cbxMutationType";
+            this.cbxMutationType.Size = new System.Drawing.Size(121, 21);
+            this.cbxMutationType.TabIndex = 6;
+            // 
+            // cbxCrossoverType
+            // 
+            this.cbxCrossoverType.FormattingEnabled = true;
+            this.cbxCrossoverType.Items.AddRange(new object[] {
+            "PMX",
+            "OX"});
+            this.cbxCrossoverType.Location = new System.Drawing.Point(113, 33);
+            this.cbxCrossoverType.Name = "cbxCrossoverType";
+            this.cbxCrossoverType.Size = new System.Drawing.Size(121, 21);
+            this.cbxCrossoverType.TabIndex = 7;
+            // 
+            // cbxSelectionType
+            // 
+            this.cbxSelectionType.FormattingEnabled = true;
+            this.cbxSelectionType.Items.AddRange(new object[] {
+            "Turniejowa",
+            "Ruletkowa"});
+            this.cbxSelectionType.Location = new System.Drawing.Point(113, 63);
+            this.cbxSelectionType.Name = "cbxSelectionType";
+            this.cbxSelectionType.Size = new System.Drawing.Size(121, 21);
+            this.cbxSelectionType.TabIndex = 8;
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(524, 106);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 10;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(240, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Szansa mutacji";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(240, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Szansa krzyżowania";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(240, 66);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Wielkość selekcji";
+            // 
+            // tbxMutationChance
+            // 
+            this.tbxMutationChance.Location = new System.Drawing.Point(347, 9);
+            this.tbxMutationChance.Name = "tbxMutationChance";
+            this.tbxMutationChance.Size = new System.Drawing.Size(100, 20);
+            this.tbxMutationChance.TabIndex = 14;
+            // 
+            // tbxCrossoverChance
+            // 
+            this.tbxCrossoverChance.Location = new System.Drawing.Point(347, 36);
+            this.tbxCrossoverChance.Name = "tbxCrossoverChance";
+            this.tbxCrossoverChance.Size = new System.Drawing.Size(100, 20);
+            this.tbxCrossoverChance.TabIndex = 15;
+            // 
+            // tbxSelectionSize
+            // 
+            this.tbxSelectionSize.Location = new System.Drawing.Point(347, 63);
+            this.tbxSelectionSize.Name = "tbxSelectionSize";
+            this.tbxSelectionSize.Size = new System.Drawing.Size(100, 20);
+            this.tbxSelectionSize.TabIndex = 16;
+            // 
+            // lblPopulationSize
+            // 
+            this.lblPopulationSize.AutoSize = true;
+            this.lblPopulationSize.Location = new System.Drawing.Point(12, 106);
+            this.lblPopulationSize.Name = "lblPopulationSize";
+            this.lblPopulationSize.Size = new System.Drawing.Size(97, 13);
+            this.lblPopulationSize.TabIndex = 17;
+            this.lblPopulationSize.Text = "Wielkość Populacji";
+            // 
+            // tbxPopulationSize
+            // 
+            this.tbxPopulationSize.Location = new System.Drawing.Point(115, 106);
+            this.tbxPopulationSize.Name = "tbxPopulationSize";
+            this.tbxPopulationSize.Size = new System.Drawing.Size(84, 20);
+            this.tbxPopulationSize.TabIndex = 18;
+            // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Location = new System.Drawing.Point(218, 111);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(53, 13);
+            this.lblTime.TabIndex = 19;
+            this.lblTime.Text = "Czas[sec]";
+            // 
+            // tbxTime
+            // 
+            this.tbxTime.Location = new System.Drawing.Point(277, 108);
+            this.tbxTime.Name = "tbxTime";
+            this.tbxTime.Size = new System.Drawing.Size(100, 20);
+            this.tbxTime.TabIndex = 20;
+            // 
+            // btnTspLoad
+            // 
+            this.btnTspLoad.Location = new System.Drawing.Point(434, 106);
+            this.btnTspLoad.Name = "btnTspLoad";
+            this.btnTspLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnTspLoad.TabIndex = 21;
+            this.btnTspLoad.Text = "TSP XML";
+            this.btnTspLoad.UseVisualStyleBackColor = true;
+            this.btnTspLoad.Click += new System.EventHandler(this.btnTspLoad_Click);
+            // 
+            // lblFileName
+            // 
+            this.lblFileName.AutoSize = true;
+            this.lblFileName.Location = new System.Drawing.Point(456, 12);
+            this.lblFileName.Name = "lblFileName";
+            this.lblFileName.Size = new System.Drawing.Size(127, 13);
+            this.lblFileName.TabIndex = 22;
+            this.lblFileName.Text = "brak załadowanego pliku";
+            // 
+            // SolverView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(643, 141);
+            this.Controls.Add(this.lblFileName);
+            this.Controls.Add(this.btnTspLoad);
+            this.Controls.Add(this.tbxTime);
+            this.Controls.Add(this.lblTime);
+            this.Controls.Add(this.tbxPopulationSize);
+            this.Controls.Add(this.lblPopulationSize);
+            this.Controls.Add(this.tbxSelectionSize);
+            this.Controls.Add(this.tbxCrossoverChance);
+            this.Controls.Add(this.tbxMutationChance);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.cbxSelectionType);
+            this.Controls.Add(this.cbxCrossoverType);
+            this.Controls.Add(this.cbxMutationType);
+            this.Controls.Add(this.lblSelectionType);
+            this.Controls.Add(this.lblCrossoverType);
+            this.Controls.Add(this.lblMutationType);
+            this.Controls.Add(this.chkMultiThreadEnable);
+            this.Controls.Add(this.chkSingleThreadEnable);
+            this.Name = "SolverView";
             this.Text = "SolverView";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        public System.Windows.Forms.CheckBox chkSingleThreadEnable;
+        public System.Windows.Forms.CheckBox chkMultiThreadEnable;
+        public System.Windows.Forms.Label lblMutationType;
+        public System.Windows.Forms.Label lblCrossoverType;
+        public System.Windows.Forms.Label lblSelectionType;
+        public System.Windows.Forms.ComboBox cbxMutationType;
+        public System.Windows.Forms.ComboBox cbxCrossoverType;
+        public System.Windows.Forms.ComboBox cbxSelectionType;
+        public System.Windows.Forms.Button btnStart;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox tbxMutationChance;
+        public System.Windows.Forms.TextBox tbxCrossoverChance;
+        public System.Windows.Forms.TextBox tbxSelectionSize;
+        public System.Windows.Forms.Label lblPopulationSize;
+        public System.Windows.Forms.TextBox tbxPopulationSize;
+        public System.Windows.Forms.Label lblTime;
+        public System.Windows.Forms.TextBox tbxTime;
+        public System.Windows.Forms.Button btnTspLoad;
+        public System.Windows.Forms.Label lblFileName;
     }
 }

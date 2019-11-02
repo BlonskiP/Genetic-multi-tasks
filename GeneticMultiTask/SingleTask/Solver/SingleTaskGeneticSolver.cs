@@ -14,20 +14,6 @@ namespace SingleTask.Solver
 {
     public class SingleTaskGeneticSolver : GeneticSolver
     {
-        Random rnd;
-        public AdjacencyMatrix matrix;
-        public MutationType mutation;
-        public SelectionType selector;
-        public CrossoverType crossover;
-        List<Candidate> population;
-        public List<Candidate> bestPerTwoMinutes;
-        int minutes;
-        public int maxPopulationSize;
-        public int MaxTime;
-        public Stopwatch time;
-        public Candidate bestCandidate;
-        public List<Candidate> results;
-        public Result result;
         public SingleTaskGeneticSolver(AdjacencyMatrix matrix, MutationType mutation, CrossoverType crossover, SelectionType selectionType, int populationSize, int MaxTime)
         {
             this.crossover = crossover;

@@ -20,12 +20,12 @@ namespace Shared.AbstractClasses
         public int minutes;
 
         public Stopwatch time;
-        Random rnd;
+        public Random rnd;
 
         public Result result;
         public Candidate bestCandidate;
         public List<Candidate> results;
-        List<Candidate> population;
+        public List<Candidate> population;
         public List<Candidate> bestPerTwoMinutes;
 
 
