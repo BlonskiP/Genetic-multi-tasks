@@ -1,6 +1,7 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -224,17 +225,17 @@ namespace MultiTask.Crossover
         {
             int parentX;
             int parentY;
-            List<Candidate> newPopulation = new List<Candidate>();
+            ConcurrentQueue<Candidate> newPopulation = new ConcurrentQueue<Candidate>();
             int size = populationSize / 2;
-            for(int i=0; i<size;i++)
+            Parallel.For(0, size, i =>
             {
-                 parentX =rnd.Next(0, population.Count());
-                 parentY =rnd.Next(0, population.Count());
-                //parentX = 0;
-                //parentY = 1;
-                newPopulation.AddRange(Crossover(population[parentX], population[parentY]));
-            }
-            return newPopulation;
+                parentX = rnd.Next(0, population.Count());
+                parentY = rnd.Next(0, population.Count());
+                var children = Crossover(population[parentX], population[parentY]);
+                newPopulation.Enqueue(children[0]);
+                newPopulation.Enqueue(children[1]);
+            });
+            return newPopulation.ToList();
         }
         private bool checkGens(List<Candidate> candidates) //test only
         {
