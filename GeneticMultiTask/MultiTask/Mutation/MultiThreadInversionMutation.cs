@@ -45,6 +45,7 @@ namespace MultiTask.Mutation
         {
             Parallel.ForEach(population, candidate =>
             {
+                if(candidate!=null)
                 Mutate(candidate);
             });
             return population;
