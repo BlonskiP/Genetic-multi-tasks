@@ -56,9 +56,11 @@ namespace GeneticMultiTask
         }
         private void updateChart(object sender, EventArgs e)
         {
+           
             for (int i = 0; i < cartesianChart1.Series.Count; i++)
             {
-                cartesianChart1.Series[i].Values.Add(solvers[i].bestCandidate.generation);
+                if (solvers[i].population[0]!=null)
+                    cartesianChart1.Series[i].Values.Add(solvers[i].population[0].generation);
             }
             cartesianChart1.Refresh();
             bool isRun = false;

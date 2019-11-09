@@ -3,6 +3,7 @@ using Shared.Entities;
 using SingleTask.Crossover;
 using SingleTask.Mutation;
 using SingleTask.Solver;
+using MultiTask.Mutation;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,6 +15,8 @@ using System.Xml.Linq;
 using LiveCharts.WinForms; //the WinForm wrappers
 using LiveCharts; //Core of the library
 using System.Threading;
+using MultiTask.Selection;
+using MultiTask.Crossover;
 
 namespace GeneticMultiTask
 {
@@ -106,18 +109,25 @@ namespace GeneticMultiTask
             MutationType mutation = null;
             CrossoverType crossover = null;
             SelectionType selection = null;
+            GeneticSolver solver = null;//add parameters TO DO
             AdjacencyMatrix matrix = new AdjacencyMatrix(tspXmlFile);
 
             switch (mutationIndex)
             {
                 case 0:
                     {
-                        mutation = new InversionMutation(mutationChance);
+                        if (!isMultiThread)
+                            mutation = new InversionMutation(mutationChance);
+                        else
+                            mutation = new MultiThreadInversionMutation(mutationChance);
                         break;
                     }
                 case 1:
                     {
-                        mutation = new TranspositionMutation(mutationChance);
+                        if (!isMultiThread)
+                            mutation = new TranspositionMutation(mutationChance);
+                        else
+                            mutation = new MultiThreadTranspositionMutation(mutationChance);
                         break;
                     }
 
@@ -127,12 +137,18 @@ namespace GeneticMultiTask
             {
                 case 0:
                     {
-                        crossover = new PMXCrossover(crossoverChance);
+                        if (!isMultiThread)
+                            crossover = new PMXCrossover(crossoverChance);
+                        else
+                            crossover = new MultiThreadPMXCrossover(crossoverChance);
                         break;
                     }
                 case 1:
                     {
-                        crossover = new OXCrossover(crossoverChance);
+                        if (!isMultiThread)
+                            crossover = new OXCrossover(crossoverChance);
+                        else
+                            crossover = new MultiThreadOXCrossover(crossoverChance);
                         break;
                     }
             }
@@ -141,20 +157,26 @@ namespace GeneticMultiTask
             {
                 case 0:
                     {
-                        selection = new TournamentSelection(selectorSize);
+                        if (!isMultiThread)
+                            selection = new TournamentSelection(selectorSize);
+                        else
+                            selection = new MultiThreadTournamentSelection(selectorSize);
                         break;
                     }
                 case 1:
                     {
-                        selection = new RouletteSelection(selectorSize);
+                        if (!isMultiThread)
+                            selection = new RouletteSelection(selectorSize);
+                        else
+                            selection = new MultiThreadRouletteSelection(selectorSize);
                         break;
                     }
             }
-            GeneticSolver solver = null;//add parameters TO DO
+           
             if (mutation != null && selection != null && crossover != null)
             {
                 if (isMultiThread) {
-                   // solver=new GeneticSolver
+                   solver = new MultiTaskGeneticSolver(matrix, mutation, crossover, selection, populationSize, timeMS);
                 }
                 else
                     solver= new SingleTaskGeneticSolver(matrix, mutation, crossover, selection, populationSize, timeMS);
