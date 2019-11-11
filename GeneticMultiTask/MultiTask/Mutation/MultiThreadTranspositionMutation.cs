@@ -49,10 +49,6 @@ namespace MultiTask.Mutation
                 if (candidate != null)
                     Mutate(candidate);
             });
-            foreach(var cand in population)
-            {
-                IntegrityHelper.checkGens(cand);
-            }
             return population;
         }
     }

@@ -10,11 +10,11 @@ namespace MultiTask
     {
         public static ParallelOptions parallelOptMutation = new ParallelOptions()
         {
-            MaxDegreeOfParallelism = 1000
+            MaxDegreeOfParallelism = 100
         };
         public static ParallelOptions parallelOptCrossover = new ParallelOptions()
         {
-            MaxDegreeOfParallelism = 1000
+            MaxDegreeOfParallelism =  100
         };
     }
 }

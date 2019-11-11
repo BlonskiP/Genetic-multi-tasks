@@ -225,21 +225,17 @@ namespace MultiTask.Crossover
             int parentY;
             ConcurrentQueue<Candidate> newPopulation = new ConcurrentQueue<Candidate>();
             int size = populationSize / 2;
-        //    System.Console.WriteLine("CrossoverPopulation Starts");
-            
             ParallelLoopResult res = Parallel.For(0, size,MultiTaskOptions.parallelOptCrossover,i =>
             {
-        //        System.Console.WriteLine("Crossover Starts for cand " + i);
                 parentX = RandomHelper.Next(0, population.Count());
                 parentY = RandomHelper.Next(0, population.Count());
                 var children = Crossover(population[parentX], population[parentY]);
                 newPopulation.Enqueue(children[0]);
                 newPopulation.Enqueue(children[1]);
-           //     System.Console.WriteLine("Crossover end for cand " + i);
             });
             while(!res.IsCompleted)
             { }
-          //  System.Console.WriteLine("CrossoverPopulation Ends");
+            
             return newPopulation.ToList();
         }
         private bool checkGens(List<Candidate> candidates) //test only

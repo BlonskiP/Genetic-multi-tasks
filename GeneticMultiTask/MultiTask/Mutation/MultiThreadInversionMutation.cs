@@ -46,18 +46,13 @@ namespace MultiTask.Mutation
 
         public override List<Candidate> MutateList(List<Candidate> population)
         {
-          //  System.Console.WriteLine("Mutations Starts ------------");
             ConcurrentQueue<Candidate> mutants = new ConcurrentQueue<Candidate>();
             var res = Parallel.ForEach(population.Distinct(), MultiTaskOptions.parallelOptMutation, candidate =>
             {
-         //       System.Console.WriteLine("Mutations Starts for cand ");
-                mutants.Enqueue(Mutate(candidate));
-       //         System.Console.WriteLine("Mutations Ends for cand ");
-
+                    mutants.Enqueue(Mutate(candidate));
             });
             while(!res.IsCompleted)
             { }
-        //    System.Console.WriteLine("Mutation Ends ------------");
             IntegrityHelper.checkGens(mutants.ToList());
             IntegrityHelper.checkCandidateDuplicates(mutants.ToList());
             return population;
