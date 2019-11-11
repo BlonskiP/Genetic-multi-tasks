@@ -226,7 +226,8 @@ namespace MultiTask.Crossover
             ConcurrentQueue<Candidate> newPopulation = new ConcurrentQueue<Candidate>();
             int size = populationSize / 2;
         //    System.Console.WriteLine("CrossoverPopulation Starts");
-            ParallelLoopResult res = Parallel.For(0, size, i =>
+            
+            ParallelLoopResult res = Parallel.For(0, size,MultiTaskOptions.parallelOptCrossover,i =>
             {
         //        System.Console.WriteLine("Crossover Starts for cand " + i);
                 parentX = RandomHelper.Next(0, population.Count());
