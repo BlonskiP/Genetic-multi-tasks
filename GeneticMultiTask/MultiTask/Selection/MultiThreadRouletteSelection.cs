@@ -17,9 +17,7 @@ namespace MultiTask.Selection
             this.selectionSize = size;
             BreedingPool = new List<Candidate>();
             rnd = new Random();
-            this.SelectionName = "RouletteSelection";
-
-
+            this.SelectionName = "MultiThreadRouletteSelection";
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
         {

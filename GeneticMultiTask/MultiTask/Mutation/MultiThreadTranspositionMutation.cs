@@ -1,5 +1,6 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,7 @@ namespace MultiTask.Mutation
                 Swap<int>(candidate.chromoson, index1, index2);
 
             }
+            IntegrityHelper.checkGens(candidate);
             return candidate;
 
         }

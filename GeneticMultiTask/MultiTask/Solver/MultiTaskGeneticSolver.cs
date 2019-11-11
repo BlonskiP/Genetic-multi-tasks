@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared.Entities;
 using Shared.AbstractClasses;
-
+using Shared.Helpers;
 
 namespace SingleTask.Solver
 {
@@ -47,10 +47,12 @@ namespace SingleTask.Solver
             {
                 
                 findBest(population);
+                IntegrityHelper.checkCandidateDuplicates(population);
                 getNextBestTwoMinutesCandidate(population);
                 time.Start();
+                IntegrityHelper.checkCandidateDuplicates(population);
                 breedingPool = selector.generateBreedingPool(population);
-             
+                IntegrityHelper.checkCandidateDuplicates(population);
                 newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
                
                 mutants = mutation.MutateList(newPopulation);

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Crossover\MultiThreadOXCrossover.cs" />
     <Compile Include="Crossover\MultiThreadPMXCrossover.cs" />
+    <Compile Include="MultiTaskOptions.cs" />
     <Compile Include="Mutation\MultiThreadInversionMutation.cs" />
     <Compile Include="Mutation\MultiThreadTranspositionMutation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

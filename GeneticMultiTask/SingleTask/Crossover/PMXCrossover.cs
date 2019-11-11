@@ -1,5 +1,6 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace SingleTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                checkGens(childrenList);
+                IntegrityHelper.checkGens(childrenList);
             }
             else
             {
@@ -66,7 +67,7 @@ namespace SingleTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                checkGens(childrenList);
+                IntegrityHelper.checkGens(childrenList);
             }
             return childrenList;
         }
@@ -235,17 +236,6 @@ namespace SingleTask.Crossover
                 newPopulation.AddRange(Crossover(population[parentX], population[parentY]));
             }
             return newPopulation;
-        }
-        private bool checkGens(List<Candidate> candidates) //test only
-        {
-            foreach (var candidate in candidates)
-            {
-                if (candidate.chromoson.Contains(0))
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

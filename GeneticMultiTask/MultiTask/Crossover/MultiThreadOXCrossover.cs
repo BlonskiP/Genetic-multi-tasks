@@ -1,5 +1,6 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace MultiTask.Crossover
 
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                checkGens(childrenList);
+                IntegrityHelper.checkGens(childrenList);
 
             }
             else
@@ -64,22 +65,12 @@ namespace MultiTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                checkGens(childrenList);
+                IntegrityHelper.checkGens(childrenList);
             }
             return childrenList;
         }
 
-        private bool checkGens(List<Candidate> childrenList)
-        {
-            foreach (var candidate in childrenList)
-            {
-                if (candidate.chromoson.Contains(0))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
 
         private void FillChromosoneWithMissingGens(ref int[] childChromosome, List<int> chromoson, int endIndex)
         {

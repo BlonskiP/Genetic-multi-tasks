@@ -20,7 +20,7 @@ namespace MultiTask.Selection
             this.selectionSize = size;
             BreedingPool = new List<Candidate>();
             rnd = new Random();
-            this.SelectionName = "TournamentSelection";
+            this.SelectionName = "MultiThreadTournamentSelection";
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
         {

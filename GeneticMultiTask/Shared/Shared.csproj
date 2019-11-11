@@ -48,10 +48,10 @@
     <Compile Include="Entities\AdjacencyMatrix.cs" />
     <Compile Include="Entities\Candidate.cs" />
     <Compile Include="Entities\Result.cs" />
+    <Compile Include="Helpers\IntegrityHelper.cs" />
+    <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

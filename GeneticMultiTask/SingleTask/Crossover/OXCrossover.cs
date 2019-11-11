@@ -1,5 +1,6 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace SingleTask.Crossover
 
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                checkGens(childrenList);
+                IntegrityHelper.checkGens(childrenList);
 
             }
             else
@@ -63,7 +64,7 @@ namespace SingleTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                checkGens(childrenList);
+                IntegrityHelper.checkGens(childrenList);
             }
             return childrenList;
         }

@@ -1,5 +1,6 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -13,21 +14,23 @@ namespace MultiTask.Crossover
     {
         public MultiThreadPMXCrossover(float crossoverChance)
         {
-            rnd = new Random();
             this.CrossoverName = "PMXCrossover";
             this.CrossoverChance = crossoverChance;
         }
         public override List<Candidate> Crossover(Candidate parentX, Candidate parentY)
         {
             List<Candidate> childrenList = new List<Candidate>();
-            float chance = (float)rnd.NextDouble();
+            float chance = (float)RandomHelper.NextDouble();
             if (chance < CrossoverChance)
             {
                
-                int startIndex = rnd.Next(0, parentX.chromoson.Count() - 1);
-                int endIndex = rnd.Next(0, parentX.chromoson.Count() - 1); //random indexes
+                int startIndex = RandomHelper.Next(0, parentX.chromoson.Count() - 1);
+                int endIndex = RandomHelper.Next(0, parentX.chromoson.Count() - 1); //random indexes
                                                                            // int startIndex = 3;
-                                                                           //int endIndex = 7; //only for testing
+                //while(startIndex==endIndex)
+                //{
+                //    endIndex= rnd.Next(0, parentX.chromoson.Count() - 1);
+                //}
                 if (startIndex > endIndex)
                 {
                     int temp = startIndex;
@@ -57,7 +60,7 @@ namespace MultiTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                checkGens(childrenList);
+               // IntegrityHelper.checkGens(childrenList);
             }
             else
             {
@@ -67,16 +70,12 @@ namespace MultiTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                checkGens(childrenList);
+               // IntegrityHelper.checkGens(childrenList);
             }
             return childrenList;
         }
         public int[,] createMappingArray(Candidate parentX, Candidate parentY, int startIndex, int endIndex)
         {
-
-
-
-
             int dif = endIndex - startIndex;
             int[,] mappingArray = new int[dif, 2];
             for (int i = startIndex; i < endIndex; i++)
@@ -84,9 +83,6 @@ namespace MultiTask.Crossover
                 mappingArray[i - startIndex, 0] = parentX.chromoson[i];
                 mappingArray[i - startIndex, 1] = parentY.chromoson[i];
             }
-
-
-
             return mappingArray;
         }
         public void FillChromosone(ref int[] chromosone, int startIndex, int[,] mappingArray, int side)
@@ -229,8 +225,8 @@ namespace MultiTask.Crossover
             int size = populationSize / 2;
             Parallel.For(0, size, i =>
             {
-                parentX = rnd.Next(0, population.Count());
-                parentY = rnd.Next(0, population.Count());
+                parentX = RandomHelper.Next(0, population.Count());
+                parentY = RandomHelper.Next(0, population.Count());
                 var children = Crossover(population[parentX], population[parentY]);
                 newPopulation.Enqueue(children[0]);
                 newPopulation.Enqueue(children[1]);

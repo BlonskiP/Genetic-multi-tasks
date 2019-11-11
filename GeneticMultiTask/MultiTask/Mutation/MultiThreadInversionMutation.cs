@@ -1,5 +1,7 @@
-﻿using Shared.AbstractClasses;
+﻿
+using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +16,18 @@ namespace MultiTask.Mutation
         {
             this.mutationChance = mutationChance;
             this.MutationName = "MultiThreadInversionMutation";
-            rnd = new Random();
+   
         }
         public override Candidate Mutate(Candidate candidate)
         {
-            double chance = rnd.NextDouble();
+            double chance = RandomHelper.NextDouble();
             if (chance < mutationChance)
             {
                 int endIndex;
-                int startIndex = rnd.Next(0, candidate.chromoson.Count());
+                int startIndex = RandomHelper.Next(0, candidate.chromoson.Count());
                 do
                 {
-                    endIndex = rnd.Next(0, candidate.chromoson.Count());
+                    endIndex = RandomHelper.Next(0, candidate.chromoson.Count());
                 } while (startIndex == endIndex);
                 if (startIndex > endIndex)
                 {
@@ -33,20 +35,19 @@ namespace MultiTask.Mutation
                     startIndex = endIndex;
                     endIndex = temp;
                 }
-
-
                 candidate.chromoson.Reverse(startIndex, endIndex - startIndex);
             }
             candidate.CountFitness();
+     //       IntegrityHelper.checkGens(candidate);
             return candidate;
         }
 
         public override List<Candidate> MutateList(List<Candidate> population)
         {
-            Parallel.ForEach(population, candidate =>
+            Parallel.ForEach(population.Distinct(), MultiTaskOptions.parallelOpt, candidate =>
             {
-                if(candidate!=null)
                 Mutate(candidate);
+                IntegrityHelper.checkGens(candidate);
             });
             return population;
         }
