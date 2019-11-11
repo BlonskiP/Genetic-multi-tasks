@@ -229,8 +229,8 @@ namespace SingleTask.Crossover
             int size = populationSize / 2;
             for(int i=0; i<size;i++)
             {
-                 parentX =rnd.Next(0, population.Count());
-                 parentY =rnd.Next(0, population.Count());
+                 parentX =RandomHelper.Next(0, population.Count());
+                 parentY = RandomHelper.Next(0, population.Count());
                 //parentX = 0;
                 //parentY = 1;
                 newPopulation.AddRange(Crossover(population[parentX], population[parentY]));

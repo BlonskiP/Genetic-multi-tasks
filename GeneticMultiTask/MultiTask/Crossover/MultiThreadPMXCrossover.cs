@@ -23,7 +23,8 @@ namespace MultiTask.Crossover
             float chance = (float)RandomHelper.NextDouble();
             if (chance < CrossoverChance)
             {
-               
+                IntegrityHelper.checkGens(parentX);
+                IntegrityHelper.checkGens(parentY);
                 int startIndex = RandomHelper.Next(0, parentX.chromoson.Count() - 1);
                 int endIndex = RandomHelper.Next(0, parentX.chromoson.Count() - 1); //random indexes
                                                                            // int startIndex = 3;
@@ -60,7 +61,7 @@ namespace MultiTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-               // IntegrityHelper.checkGens(childrenList);
+                IntegrityHelper.checkGens(childrenList);
             }
             else
             {
@@ -149,6 +150,7 @@ namespace MultiTask.Crossover
                     tempGen = genToMap;
                     while (chromosone.Contains(tempGen)){
                         int mapped = directedMap(mappingArray, tempGen, mappingDirection);
+                        IntegrityHelper.checkGens(parent);
                         if (tempGen==mapped)
                         {
                             mappingDirection = !mappingDirection;
@@ -188,7 +190,7 @@ namespace MultiTask.Crossover
             if (direction)//Y to X
                 mapped = mapYtoX(mappingArray, x);
             else mapped = mapXtoY(mappingArray, x);
-
+            
             return mapped;
         }
         private int mapXtoY(int[,] mappingArray, int x)
@@ -223,14 +225,20 @@ namespace MultiTask.Crossover
             int parentY;
             ConcurrentQueue<Candidate> newPopulation = new ConcurrentQueue<Candidate>();
             int size = populationSize / 2;
-            Parallel.For(0, size, i =>
+        //    System.Console.WriteLine("CrossoverPopulation Starts");
+            ParallelLoopResult res = Parallel.For(0, size, i =>
             {
+        //        System.Console.WriteLine("Crossover Starts for cand " + i);
                 parentX = RandomHelper.Next(0, population.Count());
                 parentY = RandomHelper.Next(0, population.Count());
                 var children = Crossover(population[parentX], population[parentY]);
                 newPopulation.Enqueue(children[0]);
                 newPopulation.Enqueue(children[1]);
+           //     System.Console.WriteLine("Crossover end for cand " + i);
             });
+            while(!res.IsCompleted)
+            { }
+          //  System.Console.WriteLine("CrossoverPopulation Ends");
             return newPopulation.ToList();
         }
         private bool checkGens(List<Candidate> candidates) //test only

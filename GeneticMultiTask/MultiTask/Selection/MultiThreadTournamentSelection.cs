@@ -35,11 +35,11 @@ namespace MultiTask.Selection
                 {
                     List<Candidate> participants = getRandomCandidates(candList);
                     winner = Tournament(participants);
-                    winnerList.Add(winner);
+                    winnerList.Add(new Candidate(winner));
                 }
                 winner = Tournament(winnerList);
                 winnerList = new List<Candidate>();
-                BreedingPool.Add(winner);
+                BreedingPool.Add(new Candidate(winner));
             }
             BreedingPool.OrderBy(o => o.fitness);
             return BreedingPool;

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared.Entities;
 using Shared.AbstractClasses;
-
+using Shared.Helpers;
 
 namespace SingleTask.Solver
 {
@@ -54,8 +54,7 @@ namespace SingleTask.Solver
                 newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
                
                 mutants = mutation.MutateList(newPopulation);
-            
-                
+
                 population = mutants;
                 time.Stop();
             }

@@ -140,7 +140,7 @@ namespace GeneticMultiTask
                         if (!isMultiThread)
                             crossover = new PMXCrossover(crossoverChance);
                         else
-                            crossover = new MultiThreadPMXCrossover(crossoverChance);
+                            crossover =  new MultiThreadPMXCrossover(crossoverChance); //new PMXCrossover(crossoverChance); //
                         break;
                     }
                 case 1:

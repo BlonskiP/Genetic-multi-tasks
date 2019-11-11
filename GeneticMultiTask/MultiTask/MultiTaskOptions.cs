@@ -8,9 +8,13 @@ namespace MultiTask
 {
     public static class MultiTaskOptions
     {
-        public static ParallelOptions parallelOpt = new ParallelOptions()
+        public static ParallelOptions parallelOptMutation = new ParallelOptions()
         {
-            MaxDegreeOfParallelism = 2
+            MaxDegreeOfParallelism = 1
+        };
+        public static ParallelOptions parallelOptCrossover = new ParallelOptions()
+        {
+            MaxDegreeOfParallelism = 1000
         };
     }
 }

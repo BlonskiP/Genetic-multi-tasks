@@ -15,7 +15,14 @@ namespace Shared.Entities
         public GeneticSolver solver;
         public string time;
         public Candidate() { }
-
+        public Candidate(Candidate cand)
+        {
+            this.time = cand.time;
+            this.generation = cand.generation;
+            this.solver = cand.solver;
+            this.chromoson = cand.chromoson;
+            this.fitness = fitness;
+        }
         public Candidate(int generation, List<int> genotype, GeneticSolver solver, string time)
         {
             this.time = time;

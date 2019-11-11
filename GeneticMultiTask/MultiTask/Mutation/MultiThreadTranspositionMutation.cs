@@ -32,7 +32,7 @@ namespace MultiTask.Mutation
                 Swap<int>(candidate.chromoson, index1, index2);
 
             }
-            IntegrityHelper.checkGens(candidate);
+          
             return candidate;
 
         }
@@ -49,6 +49,10 @@ namespace MultiTask.Mutation
                 if (candidate != null)
                     Mutate(candidate);
             });
+            foreach(var cand in population)
+            {
+                IntegrityHelper.checkGens(cand);
+            }
             return population;
         }
     }

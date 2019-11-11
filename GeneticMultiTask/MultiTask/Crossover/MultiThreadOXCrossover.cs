@@ -118,7 +118,7 @@ namespace MultiTask.Crossover
             int parentY;
             ConcurrentQueue<Candidate> newPopulation = new ConcurrentQueue<Candidate>();
             int size = populationSize / 2;
-            Parallel.For(0, size, i =>
+            ParallelLoopResult res = Parallel.For(0, size,MultiTaskOptions.parallelOptCrossover, i =>
               {
                   parentX = rnd.Next(0, population.Count());
                   parentY = rnd.Next(0, population.Count());
@@ -126,6 +126,10 @@ namespace MultiTask.Crossover
                   newPopulation.Enqueue(children[0]);
                   newPopulation.Enqueue(children[1]);
               }) ;
+            if(!res.IsCompleted)
+            {
+                while (true) ;
+            }
             return newPopulation.ToList();
         }
     }

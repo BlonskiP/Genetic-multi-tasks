@@ -3,6 +3,7 @@ using Shared.AbstractClasses;
 using Shared.Entities;
 using Shared.Helpers;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,13 +22,14 @@ namespace MultiTask.Mutation
         public override Candidate Mutate(Candidate candidate)
         {
             double chance = RandomHelper.NextDouble();
+            Candidate mutant = new Candidate(candidate);
             if (chance < mutationChance)
             {
                 int endIndex;
-                int startIndex = RandomHelper.Next(0, candidate.chromoson.Count());
+                int startIndex = RandomHelper.Next(0, mutant.chromoson.Count());
                 do
                 {
-                    endIndex = RandomHelper.Next(0, candidate.chromoson.Count());
+                    endIndex = RandomHelper.Next(0, mutant.chromoson.Count());
                 } while (startIndex == endIndex);
                 if (startIndex > endIndex)
                 {
@@ -35,20 +37,29 @@ namespace MultiTask.Mutation
                     startIndex = endIndex;
                     endIndex = temp;
                 }
-                candidate.chromoson.Reverse(startIndex, endIndex - startIndex);
+                mutant.chromoson.Reverse(startIndex, endIndex - startIndex);
             }
-            candidate.CountFitness();
+            mutant.CountFitness();
      //       IntegrityHelper.checkGens(candidate);
-            return candidate;
+            return mutant;
         }
 
         public override List<Candidate> MutateList(List<Candidate> population)
         {
-            Parallel.ForEach(population.Distinct(), MultiTaskOptions.parallelOpt, candidate =>
+          //  System.Console.WriteLine("Mutations Starts ------------");
+            ConcurrentQueue<Candidate> mutants = new ConcurrentQueue<Candidate>();
+            var res = Parallel.ForEach(population.Distinct(), MultiTaskOptions.parallelOptMutation, candidate =>
             {
-                Mutate(candidate);
-                IntegrityHelper.checkGens(candidate);
+         //       System.Console.WriteLine("Mutations Starts for cand ");
+                mutants.Enqueue(Mutate(candidate));
+       //         System.Console.WriteLine("Mutations Ends for cand ");
+
             });
+            while(!res.IsCompleted)
+            { }
+        //    System.Console.WriteLine("Mutation Ends ------------");
+            IntegrityHelper.checkGens(mutants.ToList());
+            IntegrityHelper.checkCandidateDuplicates(mutants.ToList());
             return population;
         }
     }
