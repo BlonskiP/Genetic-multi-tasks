@@ -20,7 +20,7 @@ namespace Shared.Entities
             this.time = cand.time;
             this.generation = cand.generation;
             this.solver = cand.solver;
-            this.chromoson = cand.chromoson;
+            this.chromoson = new List<int>(cand.chromoson);
             this.fitness = fitness;
         }
         public Candidate(int generation, List<int> genotype, GeneticSolver solver, string time)

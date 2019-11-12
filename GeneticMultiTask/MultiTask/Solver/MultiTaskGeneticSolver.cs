@@ -50,16 +50,16 @@ namespace SingleTask.Solver
               
                 getNextBestTwoMinutesCandidate(population);
                 time.Start();
-                IntegrityHelper.checkCandidateDuplicates(population);
-                IntegrityHelper.checkGens(population);
+                //IntegrityHelper.checkCandidateDuplicates(population);
+               // IntegrityHelper.checkGens(population);
                 breedingPool = selector.generateBreedingPool(population);
-                IntegrityHelper.checkCandidateDuplicates(breedingPool);
-                IntegrityHelper.checkGens(breedingPool);
+               // IntegrityHelper.checkCandidateDuplicates(breedingPool);
+              //  IntegrityHelper.checkGens(breedingPool);
                 newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
-                IntegrityHelper.checkCandidateDuplicates(newPopulation);
+            //    IntegrityHelper.checkCandidateDuplicates(newPopulation);
                 mutants = mutation.MutateList(newPopulation);
-                IntegrityHelper.checkGens(mutants);
-                IntegrityHelper.checkCandidateDuplicates(mutants);
+          //      IntegrityHelper.checkGens(mutants);
+        //        IntegrityHelper.checkCandidateDuplicates(mutants);
                 //  IntegrityHelper.checkGens(mutants);
 
                 population = mutants;

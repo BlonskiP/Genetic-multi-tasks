@@ -53,8 +53,8 @@ namespace MultiTask.Mutation
             });
             while(!res.IsCompleted)
             { }
-            IntegrityHelper.checkGens(mutants.ToList());
-            IntegrityHelper.checkCandidateDuplicates(mutants.ToList());
+         //   IntegrityHelper.checkGens(mutants.ToList());
+           // IntegrityHelper.checkCandidateDuplicates(mutants.ToList());
             return population;
         }
     }

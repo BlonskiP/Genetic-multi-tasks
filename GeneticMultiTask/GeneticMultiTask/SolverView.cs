@@ -33,12 +33,13 @@ namespace GeneticMultiTask
             cartesianChart1.AxisX.Add(new Axis
             {
                 Title = "Sekundy",
-                Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
+                LabelFormatter = value => value.ToString("F")
+
             });
             cartesianChart1.AxisY.Add(new Axis
             {
                 Title = "Liczba Generacji",
-                LabelFormatter = value => value.ToString("C")
+                LabelFormatter = value => value.ToString("F")
             });
             cartesianChart1.LegendLocation = LegendLocation.Bottom;
             cartesianChart1.DataClick += CartesianChart1OnDataClick;
