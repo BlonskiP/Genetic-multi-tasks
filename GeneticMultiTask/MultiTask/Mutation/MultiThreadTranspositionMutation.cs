@@ -44,11 +44,12 @@ namespace MultiTask.Mutation
         }
         public override List<Candidate> MutateList(List<Candidate> population)
         {
-            Parallel.ForEach(population, candidate =>
+            var res = Parallel.ForEach(population, candidate =>
             {
-                if (candidate != null)
                     Mutate(candidate);
             });
+            while (!res.IsCompleted)
+            { }
             return population;
         }
     }

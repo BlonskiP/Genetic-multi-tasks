@@ -16,5 +16,9 @@ namespace MultiTask
         {
             MaxDegreeOfParallelism =  1000
         };
+        public static ParallelOptions parallelOptSelection = new ParallelOptions()
+        {
+            MaxDegreeOfParallelism = 1000
+        };
     }
 }

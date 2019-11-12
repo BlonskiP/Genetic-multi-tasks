@@ -1,6 +1,8 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,49 +28,35 @@ namespace MultiTask.Selection
         {
             BreedingPool = new List<Candidate>();
             Candidate winner;
-            List<Candidate> winnerList = new List<Candidate>();
+            ConcurrentQueue<Candidate> winnerList = new ConcurrentQueue<Candidate>();
             int size = (int)(candList.Count() * 0.3);
             while (BreedingPool.Count() <size)
             {
-                
-                while (winnerList.Count() <= TournamentSize)
-                {
-                    List<Candidate> participants = getRandomCandidates(candList);
+                Parallel.For(0, TournamentSize, i=> {
+                    ConcurrentQueue<Candidate> participants = getRandomCandidates(candList);
                     winner = Tournament(participants);
-                    winnerList.Add(new Candidate(winner));
-                }
+                    winnerList.Enqueue(new Candidate(winner));
+                });
                 winner = Tournament(winnerList);
-                winnerList = new List<Candidate>();
+                winnerList = new ConcurrentQueue<Candidate>();
                 BreedingPool.Add(new Candidate(winner));
             }
             BreedingPool.OrderBy(o => o.fitness);
             return BreedingPool;
         }
-        private List<Candidate> getRandomCandidates(List<Candidate> candList)
+        private ConcurrentQueue<Candidate> getRandomCandidates(List<Candidate> candList)
         {
-            
-            List<Candidate> participants = new List<Candidate>();
-            for(int i=0;i<TournamentSize;i++)
-            {
-               
-                int index = rnd.Next(0, candList.Count()-1);
-                participants.Add(candList[index]);
-            }
+            ConcurrentQueue<Candidate> participants = new ConcurrentQueue<Candidate>();
+            Parallel.For(0, TournamentSize, i => {
+                int index = RandomHelper.Next(0, candList.Count() - 1);
+                participants.Enqueue(candList[index]);
+            });
+
             return participants;
         }
-        private Candidate Tournament(List<Candidate> participants)
-        {
-            Candidate winner = participants[0];
-            float maxScore = float.MaxValue;
-            for(int i=0;i<participants.Count();i++)
-            {
-                if(participants[i].fitness<maxScore)
-                {
-                    winner = participants[i];
-                    maxScore = participants[i].fitness;
-                }
-            }
-            return winner;
+        private Candidate Tournament(ConcurrentQueue<Candidate> participants)
+        { 
+            return participants.OrderBy(cand => cand.fitness).First();
         }
     }
 }

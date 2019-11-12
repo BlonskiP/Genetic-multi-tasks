@@ -1,6 +1,8 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,30 +24,32 @@ namespace MultiTask.Selection
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
         {
             BreedingPool = new List<Candidate>();
+            
             double FittnesSum = countAllFittnes(candList);
-            List<RouletteResult> results = CreateResultsList(candList, FittnesSum);
-            double lastP = results[results.Count - 1].to;
+            ConcurrentQueue<RouletteResult> results = CreateResultsList(candList, FittnesSum);
+            double lastP = results.OrderBy(res => res.from).Last().to;
+            
             fillBreedingPool(results);
             return BreedingPool;
             
         }
 
-        private void fillBreedingPool(List<RouletteResult> results)
+        private void fillBreedingPool(ConcurrentQueue<RouletteResult> results)
         {
-            double randomRouletteNumber;
-            for(int i=0;i<selectionSize;i++)
-            {
-                randomRouletteNumber = rnd.NextDouble();
+            var TempBreeginPool = new ConcurrentQueue<Candidate>();
+            
+            Parallel.For(0, selectionSize, i => {
+                double randomRouletteNumber;
+                randomRouletteNumber = RandomHelper.NextDouble();
                 Candidate temp = FindCandidate(results, randomRouletteNumber);
                 if (temp != null)
-                    BreedingPool.Add(temp);
-                else
-                    i--;
-            }
+                    TempBreeginPool.Enqueue(temp);
+                else i--;
+            });
+            BreedingPool = TempBreeginPool.ToList();
         }
-        private Candidate FindCandidate(List<RouletteResult> results, double randomNumber)
+        private Candidate FindCandidate(ConcurrentQueue<RouletteResult> results, double randomNumber)
         {
-            Candidate temp;
             foreach(var result in results)
             {
                 if(randomNumber>result.from && randomNumber<=result.to)
@@ -55,20 +59,18 @@ namespace MultiTask.Selection
             }
         return null;
         }
-        private List<RouletteResult> CreateResultsList(List<Candidate> candList, double fittnesSum)
+        private ConcurrentQueue<RouletteResult> CreateResultsList(List<Candidate> candList, double fittnesSum)
         {
-            List<RouletteResult> rouletteResults = new List<RouletteResult>();
+            ConcurrentQueue<RouletteResult> rouletteResults = new ConcurrentQueue<RouletteResult>();
             double probability = 0;
             double p2 = 0;
-            foreach(var candidate in candList)
+            Parallel.ForEach(candList, candidate =>
             {
-                probability = (1/candidate.fitness) / fittnesSum;
-                RouletteResult result = new RouletteResult(p2,probability,candidate);
+                probability = (1 / candidate.fitness) / fittnesSum;
+                RouletteResult result = new RouletteResult(p2, probability, candidate);
                 p2 += probability;
-                rouletteResults.Add(result);
-
-
-            }
+                rouletteResults.Enqueue(result);
+            });
             return rouletteResults;
         }
 
