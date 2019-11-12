@@ -17,6 +17,7 @@ using LiveCharts; //Core of the library
 using System.Threading;
 using MultiTask.Selection;
 using MultiTask.Crossover;
+using MultiTask;
 
 namespace GeneticMultiTask
 {
@@ -176,7 +177,10 @@ namespace GeneticMultiTask
             if (mutation != null && selection != null && crossover != null)
             {
                 if (isMultiThread) {
-                   solver = new MultiTaskGeneticSolver(matrix, mutation, crossover, selection, populationSize, timeMS);
+                    MultiTaskOptions.parallelOptCrossover.MaxDegreeOfParallelism = int.Parse(View.tbxLvlCrossover.Text);
+                    MultiTaskOptions.parallelOptMutation.MaxDegreeOfParallelism = int.Parse(View.tbxLvlMutation.Text);
+                    MultiTaskOptions.parallelOptSelection.MaxDegreeOfParallelism = int.Parse(View.tbxLvlSelector.Text);
+                    solver = new MultiTaskGeneticSolver(matrix, mutation, crossover, selection, populationSize, timeMS);
                 }
                 else
                     solver= new SingleTaskGeneticSolver(matrix, mutation, crossover, selection, populationSize, timeMS);

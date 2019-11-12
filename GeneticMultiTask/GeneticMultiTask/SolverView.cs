@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MultiTask;
 
 namespace GeneticMultiTask
 {
@@ -87,6 +88,7 @@ namespace GeneticMultiTask
         {
             cartesianChart1.Series.Clear();
             controller.listTask.Clear();
+   
             controller.RunSolution();
         }
 

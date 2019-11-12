@@ -50,7 +50,6 @@
             this.btnTspLoad = new System.Windows.Forms.Button();
             this.lblFileName = new System.Windows.Forms.Label();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbxLvlMutation = new System.Windows.Forms.TextBox();
             this.tbxLvlCrossover = new System.Windows.Forms.TextBox();
             this.tbxLvlSelector = new System.Windows.Forms.TextBox();
@@ -261,13 +260,6 @@
             this.cartesianChart1.TabIndex = 23;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 24;
-            // 
             // tbxLvlMutation
             // 
             this.tbxLvlMutation.Location = new System.Drawing.Point(116, 132);
@@ -331,7 +323,6 @@
             this.Controls.Add(this.tbxLvlSelector);
             this.Controls.Add(this.tbxLvlCrossover);
             this.Controls.Add(this.tbxLvlMutation);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.cartesianChart1);
             this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.btnTspLoad);
@@ -385,10 +376,9 @@
         public System.Windows.Forms.Button btnTspLoad;
         public System.Windows.Forms.Label lblFileName;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox tbxLvlMutation;
-        private System.Windows.Forms.TextBox tbxLvlCrossover;
-        private System.Windows.Forms.TextBox tbxLvlSelector;
+        public System.Windows.Forms.TextBox tbxLvlMutation;
+        public System.Windows.Forms.TextBox tbxLvlCrossover;
+        public System.Windows.Forms.TextBox tbxLvlSelector;
         private System.Windows.Forms.Label lblLvlParMutation;
         private System.Windows.Forms.Label lblLvlCorss;
         private System.Windows.Forms.Label lblLvlSelector;
