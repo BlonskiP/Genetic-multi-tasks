@@ -13,7 +13,6 @@ namespace MultiTask.Selection
     public class MultiThreadTournamentSelection : SelectionType
     {
         public int TournamentSize;
-        Random rnd;
         List<Candidate> BreedingPool;
 
         public MultiThreadTournamentSelection(int size)
@@ -21,7 +20,6 @@ namespace MultiTask.Selection
             TournamentSize = size;
             this.selectionSize = size;
             BreedingPool = new List<Candidate>();
-            rnd = new Random();
             this.SelectionName = "MultiThreadTournamentSelection";
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
@@ -35,11 +33,12 @@ namespace MultiTask.Selection
                 Parallel.For(0, TournamentSize, i=> {
                     ConcurrentQueue<Candidate> participants = getRandomCandidates(candList);
                     winner = Tournament(participants);
-                    winnerList.Enqueue(new Candidate(winner));
+                    winnerList.Enqueue(winner);
                 });
                 winner = Tournament(winnerList);
                 winnerList = new ConcurrentQueue<Candidate>();
-                BreedingPool.Add(new Candidate(winner));
+                candList.Remove(winner);
+                    BreedingPool.Add(winner);
             }
             BreedingPool.OrderBy(o => o.fitness);
             return BreedingPool;
@@ -48,7 +47,7 @@ namespace MultiTask.Selection
         {
             ConcurrentQueue<Candidate> participants = new ConcurrentQueue<Candidate>();
             Parallel.For(0, TournamentSize, i => {
-                int index = RandomHelper.Next(0, candList.Count() - 1);
+                int index = RandomSelector.Next(0, candList.Count() - 1);
                 participants.Enqueue(candList[index]);
             });
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Helpers
 {
-    public static class RandomHelper
+    public static class RandomCrossover
     {
         static int seed = Environment.TickCount;
 

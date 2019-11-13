@@ -1,5 +1,6 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,6 @@ namespace SingleTask.Mutation
     public class TournamentSelection : SelectionType
     {
         public int TournamentSize;
-        Random rnd;
         List<Candidate> BreedingPool;
 
         public TournamentSelection(int size)
@@ -19,7 +19,6 @@ namespace SingleTask.Mutation
             TournamentSize = size;
             this.selectionSize = size;
             BreedingPool = new List<Candidate>();
-            rnd = new Random();
             this.SelectionName = "TournamentSelection";
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
@@ -39,6 +38,7 @@ namespace SingleTask.Mutation
                 }
                 winner = Tournament(winnerList);
                 winnerList = new List<Candidate>();
+                candList.Remove(winner);
                 BreedingPool.Add(winner);
             }
             BreedingPool.OrderBy(o => o.fitness);
@@ -51,24 +51,14 @@ namespace SingleTask.Mutation
             for(int i=0;i<TournamentSize;i++)
             {
                
-                int index = rnd.Next(0, candList.Count()-1);
+                int index = RandomSelector.Next(0, candList.Count()-1);
                 participants.Add(candList[index]);
             }
             return participants;
         }
         private Candidate Tournament(List<Candidate> participants)
         {
-            Candidate winner = participants[0];
-            float maxScore = float.MaxValue;
-            for(int i=0;i<participants.Count();i++)
-            {
-                if(participants[i].fitness<maxScore)
-                {
-                    winner = participants[i];
-                    maxScore = participants[i].fitness;
-                }
-            }
-            return winner;
+            return participants.OrderBy(cand => cand.fitness).First();
         }
     }
 }

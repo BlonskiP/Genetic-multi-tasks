@@ -1,5 +1,6 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,10 @@ namespace SingleTask.Mutation
     public class RouletteSelection : SelectionType
     {
         List<Candidate> BreedingPool;
-        Random rnd;
         public RouletteSelection(int size)
         {
             this.selectionSize = size;
             BreedingPool = new List<Candidate>();
-            rnd = new Random();
             this.SelectionName = "RouletteSelection";
 
 
@@ -26,7 +25,6 @@ namespace SingleTask.Mutation
             BreedingPool = new List<Candidate>();
             double FittnesSum = countAllFittnes(candList);
             List<RouletteResult> results = CreateResultsList(candList, FittnesSum);
-            double lastP = results[results.Count - 1].to;
             fillBreedingPool(results);
             return BreedingPool;
             
@@ -34,16 +32,18 @@ namespace SingleTask.Mutation
 
         private void fillBreedingPool(List<RouletteResult> results)
         {
+            var TempBreedingPool = new List<Candidate>();
             double randomRouletteNumber;
             for(int i=0;i<selectionSize;i++)
             {
-                randomRouletteNumber = rnd.NextDouble();
+                randomRouletteNumber = RandomSelector.NextDouble();
                 Candidate temp = FindCandidate(results, randomRouletteNumber);
                 if (temp != null)
-                    BreedingPool.Add(temp);
+                    TempBreedingPool.Add(temp);
                 else
                     i--;
             }
+            BreedingPool = TempBreedingPool.ToList();
         }
         private Candidate FindCandidate(List<RouletteResult> results, double randomNumber)
         {
@@ -52,6 +52,7 @@ namespace SingleTask.Mutation
             {
                 if(randomNumber>result.from && randomNumber<=result.to)
                 {
+                    results.Remove(result);
                     return result.cand;
                 }
             }
@@ -68,8 +69,6 @@ namespace SingleTask.Mutation
                 RouletteResult result = new RouletteResult(p2,probability,candidate);
                 p2 += probability;
                 rouletteResults.Add(result);
-
-
             }
             return rouletteResults;
         }

@@ -45,16 +45,14 @@ namespace SingleTask.Solver
             
             while (time.ElapsedMilliseconds < MaxTime * 1000)
             {
-                
                 findBest(population);
-                getNextBestTwoMinutesCandidate(population);
                 time.Start();
                 breedingPool = selector.generateBreedingPool(population);
-             
-                newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
-               
+                newPopulation = crossover.CrossoverPopulation(breedingPool, maxPopulationSize);
+                time.Stop();
+                findBest(population);
+                time.Start();
                 mutants = mutation.MutateList(newPopulation);
-
                 population = mutants;
                 time.Stop();
             }
@@ -100,21 +98,13 @@ namespace SingleTask.Solver
 
         public override Candidate findBest(List<Candidate> population)
         {
-            Candidate best = population[0];
             float bestScore = float.MaxValue;
-            foreach(var candidate in population)
-            {
-                if(bestScore>candidate.fitness)
-                {
-                    bestScore = candidate.fitness;
-                    best = candidate;
-                }
-            }
+            Candidate best  = population.OrderBy(o => o.fitness).First();
             if(best.fitness<bestCandidate.fitness)
             {
                 bestCandidate = best;
                
-                results.Add(findBest(population));
+                results.Add(bestCandidate);
                
             }
             return best;

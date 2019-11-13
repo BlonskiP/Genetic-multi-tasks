@@ -33,7 +33,7 @@ namespace GeneticMultiTask
         int mutationIndex { get { return View.cbxMutationType.SelectedIndex; } }
         int crossoverIndex { get { return View.cbxCrossoverType.SelectedIndex; } }
         int selectorIndex { get { return View.cbxSelectionType.SelectedIndex; } }
-        int populationSize { get { return int.Parse(View.tbxSelectionSize.Text); } }
+        int populationSize { get { return int.Parse(View.tbxPopulationSize.Text); } }
         float mutationChance { get { return float.Parse(View.tbxMutationChance.Text.ToString(), CultureInfo.InvariantCulture); } }
         int timeMS { get { return int.Parse(View.tbxTime.Text.ToString()); } }
         int selectorSize { get { return int.Parse(View.tbxSelectionSize.Text); } }

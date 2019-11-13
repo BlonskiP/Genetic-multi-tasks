@@ -49,7 +49,9 @@
     <Compile Include="Entities\Candidate.cs" />
     <Compile Include="Entities\Result.cs" />
     <Compile Include="Helpers\IntegrityHelper.cs" />
-    <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="Helpers\RandomMutator.cs" />
+    <Compile Include="Helpers\RandomSelector.cs" />
+    <Compile Include="Helpers\RandomCrossover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -21,7 +21,7 @@ namespace Shared.Entities
             this.generation = cand.generation;
             this.solver = cand.solver;
             this.chromoson = new List<int>(cand.chromoson);
-            this.fitness = fitness;
+            this.CountFitness();
         }
         public Candidate(int generation, List<int> genotype, GeneticSolver solver, string time)
         {

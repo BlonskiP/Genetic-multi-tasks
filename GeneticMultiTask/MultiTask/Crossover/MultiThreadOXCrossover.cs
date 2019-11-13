@@ -14,21 +14,18 @@ namespace MultiTask.Crossover
     {
         public MultiThreadOXCrossover(float crossoverChance)
         {
-            rnd = new Random();
             this.CrossoverName = "OXCrossover";
             this.CrossoverChance = crossoverChance;
         }
         public override List<Candidate> Crossover(Candidate parentX, Candidate parentY)
         {
             List<Candidate> childrenList = new List<Candidate>();
-            float chance = (float)rnd.NextDouble();
+            float chance = (float)RandomCrossover.NextDouble();
             if(chance<CrossoverChance)
             {
 
-                int startIndex = rnd.Next(0, parentX.chromoson.Count() - 1);
-                int endIndex = rnd.Next(0, parentX.chromoson.Count() - 1);
-               // int startIndex = 2; //debug only
-               // int endIndex = 6;
+                int startIndex = RandomCrossover.Next(0, parentX.chromoson.Count() - 1);
+                int endIndex = RandomCrossover.Next(0, parentX.chromoson.Count() - 1);
                 if (startIndex > endIndex)
                 {
                     int temp = startIndex;
@@ -120,8 +117,8 @@ namespace MultiTask.Crossover
             int size = populationSize / 2;
             var res = Parallel.For(0, size,MultiTaskOptions.parallelOptCrossover, i =>
               {
-                  parentX = rnd.Next(0, population.Count());
-                  parentY = rnd.Next(0, population.Count());
+                  parentX = RandomCrossover.Next(0, population.Count());
+                  parentY = RandomCrossover.Next(0, population.Count());
                   var children = Crossover(population[parentX], population[parentY]);
                   newPopulation.Enqueue(children[0]);
                   newPopulation.Enqueue(children[1]);

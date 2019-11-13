@@ -15,19 +15,18 @@ namespace MultiTask.Mutation
         {
             this.mutationChance = mutationChance;
             this.MutationName = "MultiThreadTranspositionMutation";
-            rnd = new Random();
         }
 
         public override Candidate Mutate(Candidate candidate)
         {
-            double chance = rnd.NextDouble();
+            double chance = RandomMutator.NextDouble();
             if (chance < mutationChance)
             {
-                int index1 = rnd.Next(0, candidate.chromoson.Count());
+                int index1 = RandomMutator.Next(0, candidate.chromoson.Count());
                 int index2;
                 do
                 {
-                    index2 = rnd.Next(0, candidate.chromoson.Count());
+                    index2 = RandomMutator.Next(0, candidate.chromoson.Count());
                 } while (index1 == index2);
                 Swap<int>(candidate.chromoson, index1, index2);
 

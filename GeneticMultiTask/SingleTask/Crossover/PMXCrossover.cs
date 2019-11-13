@@ -13,21 +13,19 @@ namespace SingleTask.Crossover
     {
         public PMXCrossover(float crossoverChance)
         {
-            rnd = new Random();
             this.CrossoverName = "PMXCrossover";
             this.CrossoverChance = crossoverChance;
         }
         public override List<Candidate> Crossover(Candidate parentX, Candidate parentY)
         {
             List<Candidate> childrenList = new List<Candidate>();
-            float chance = (float)rnd.NextDouble();
+            float chance = (float)RandomCrossover.NextDouble();
             if (chance < CrossoverChance)
             {
                
-                int startIndex = rnd.Next(0, parentX.chromoson.Count() - 1);
-                int endIndex = rnd.Next(0, parentX.chromoson.Count() - 1); //random indexes
-                                                                           // int startIndex = 3;
-                                                                           //int endIndex = 7; //only for testing
+                int startIndex = RandomCrossover.Next(0, parentX.chromoson.Count() - 1);
+                int endIndex = RandomCrossover.Next(0, parentX.chromoson.Count() - 1); //random indexes
+                                                                           
                 if (startIndex > endIndex)
                 {
                     int temp = startIndex;
@@ -57,7 +55,7 @@ namespace SingleTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                IntegrityHelper.checkGens(childrenList);
+       //         IntegrityHelper.checkGens(childrenList);
             }
             else
             {
@@ -67,7 +65,7 @@ namespace SingleTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-                IntegrityHelper.checkGens(childrenList);
+        //        IntegrityHelper.checkGens(childrenList);
             }
             return childrenList;
         }
@@ -229,11 +227,9 @@ namespace SingleTask.Crossover
             int size = populationSize / 2;
             for(int i=0; i<size;i++)
             {
-                 parentX =RandomHelper.Next(0, population.Count());
-                 parentY = RandomHelper.Next(0, population.Count());
-                //parentX = 0;
-                //parentY = 1;
-                newPopulation.AddRange(Crossover(population[parentX], population[parentY]));
+                 parentX = RandomCrossover.Next(0, population.Count());
+                 parentY = RandomCrossover.Next(0, population.Count());
+                    newPopulation.AddRange(Crossover(population[parentX], population[parentY]));
             }
             return newPopulation;
         }

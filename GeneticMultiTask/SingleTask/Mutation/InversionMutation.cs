@@ -1,5 +1,6 @@
 ﻿using Shared.AbstractClasses;
 using Shared.Entities;
+using Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,18 @@ namespace SingleTask.Mutation
         {
             this.mutationChance = mutationChance;
             this.MutationName = "InversionMutation";
-            rnd = new Random();
         }
         public override Candidate Mutate(Candidate candidate)
         {
-            double chance = rnd.NextDouble();
+            double chance = RandomMutator.NextDouble();
+            Candidate mutant = new Candidate(candidate);
             if(chance<mutationChance)
             {
                 int endIndex;
-                int startIndex = rnd.Next(0, candidate.chromoson.Count());
+                int startIndex = RandomMutator.Next(0, candidate.chromoson.Count());
                 do
                 {
-                    endIndex = rnd.Next(0, candidate.chromoson.Count());
+                    endIndex = RandomMutator.Next(0, candidate.chromoson.Count());
                 } while (startIndex == endIndex);
                 if(startIndex>endIndex)
                 {
@@ -36,17 +37,18 @@ namespace SingleTask.Mutation
                 }
 
 
-                candidate.chromoson.Reverse(startIndex, endIndex - startIndex);
+                mutant.chromoson.Reverse(startIndex, endIndex - startIndex);
             }
-            candidate.CountFitness();
-            return candidate;
+            mutant.CountFitness();
+            return mutant;
         }
 
         public override List<Candidate> MutateList(List<Candidate> population)
         {
+            List<Candidate> mutants = new List<Candidate>();
             foreach(var candidate in population)
             {
-                Mutate(candidate);
+                mutants.Add(Mutate(candidate));
             }
             return population;
         }

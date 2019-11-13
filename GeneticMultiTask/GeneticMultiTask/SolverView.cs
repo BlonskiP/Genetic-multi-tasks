@@ -19,7 +19,6 @@ namespace GeneticMultiTask
     public partial class SolverView : Form
     {
         SolverViewController controller;
-        SeriesCollection series;
         public GeneticSolver[] solvers;
         Timer timer = new Timer();
         public SolverView()
@@ -27,6 +26,7 @@ namespace GeneticMultiTask
             controller = new SolverViewController(this);
             InitializeComponent();
             cartesianChart1.Series = new SeriesCollection();
+            cartesianChart2.Series = new SeriesCollection();
             cbxCrossoverType.SelectedIndex = 0;
             cbxMutationType.SelectedIndex = 0;
             cbxSelectionType.SelectedIndex = 0;
@@ -45,11 +45,26 @@ namespace GeneticMultiTask
             cartesianChart1.LegendLocation = LegendLocation.Bottom;
             cartesianChart1.DataClick += CartesianChart1OnDataClick;
 
+            cartesianChart2.AxisX.Add(new Axis
+            {
+                Title = "Sekundy",
+                LabelFormatter = value => value.ToString("F")
+
+            });
+            cartesianChart2.AxisY.Add(new Axis
+            {
+                Title = "Koszt przejazdu",
+                LabelFormatter = value => value.ToString("F"),
+            }) ;
+            cartesianChart2.LegendLocation = LegendLocation.Bottom;
+            cartesianChart2.DataClick += CartesianChart1OnDataClick;
+            
         }
         private void CartesianChart1OnDataClick(object sender, ChartPoint chartPoint)
         {
             MessageBox.Show("You clicked (" + chartPoint.X + "," + chartPoint.Y + ")");
         }
+
         private void RunUpdates()
         {
             timer.Tick += new System.EventHandler(updateChart);
@@ -61,8 +76,12 @@ namespace GeneticMultiTask
            
             for (int i = 0; i < cartesianChart1.Series.Count; i++)
             {
-                if (solvers[i].population[0]!=null)
+                if (solvers[i].population[0] != null && solvers[i].bestCandidate!=null)
+                {
                     cartesianChart1.Series[i].Values.Add(solvers[i].population[0].generation);
+                    cartesianChart2.Series[i].Values.Add((int)solvers[i].bestCandidate.fitness);
+                }
+                    
             }
             cartesianChart1.Refresh();
             bool isRun = false;
@@ -86,6 +105,7 @@ namespace GeneticMultiTask
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            cartesianChart2.Series.Clear();
             cartesianChart1.Series.Clear();
             controller.listTask.Clear();
    
@@ -107,6 +127,19 @@ namespace GeneticMultiTask
                     PointGeometrySize = 15
                 });
             }
+            for (int i = 0; i < solvers.Length; i++)
+            {
+                cartesianChart2.Series.Add(new LineSeries
+                {
+                    Title = solvers[i].SolverTitle,
+                    Values = new ChartValues<int>(),
+                    LineSmoothness = 0,
+                    PointGeometry = DefaultGeometries.Square,
+                    PointGeometrySize = 15
+                });
+                
+            }
+
             btnStart.Enabled = false;
             RunUpdates();
         }

@@ -21,15 +21,15 @@ namespace MultiTask.Mutation
         }
         public override Candidate Mutate(Candidate candidate)
         {
-            double chance = RandomHelper.NextDouble();
+            double chance = RandomMutator.NextDouble();
             Candidate mutant = new Candidate(candidate);
             if (chance < mutationChance)
             {
                 int endIndex;
-                int startIndex = RandomHelper.Next(0, mutant.chromoson.Count());
+                int startIndex = RandomMutator.Next(0, mutant.chromoson.Count());
                 do
                 {
-                    endIndex = RandomHelper.Next(0, mutant.chromoson.Count());
+                    endIndex = RandomMutator.Next(0, mutant.chromoson.Count());
                 } while (startIndex == endIndex);
                 if (startIndex > endIndex)
                 {
@@ -40,7 +40,6 @@ namespace MultiTask.Mutation
                 mutant.chromoson.Reverse(startIndex, endIndex - startIndex);
             }
             mutant.CountFitness();
-     //       IntegrityHelper.checkGens(candidate);
             return mutant;
         }
 
@@ -51,10 +50,6 @@ namespace MultiTask.Mutation
             {
                     mutants.Enqueue(Mutate(candidate));
             });
-            while(!res.IsCompleted)
-            { }
-            //   IntegrityHelper.checkGens(mutants.ToList());
-           // IntegrityHelper.checkCandidateDuplicates(mutants.ToList());
             return population;
         }
     }

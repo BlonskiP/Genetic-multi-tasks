@@ -10,7 +10,6 @@ namespace Shared.AbstractClasses
     abstract public class MutationType
     {
         public string MutationName;
-        public Random rnd;
         public float mutationChance;
         public abstract Candidate Mutate(Candidate candidate);
         public abstract List<Candidate> MutateList(List<Candidate> population);

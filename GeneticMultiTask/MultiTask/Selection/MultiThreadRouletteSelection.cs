@@ -13,12 +13,10 @@ namespace MultiTask.Selection
     public class MultiThreadRouletteSelection : SelectionType
     {
         List<Candidate> BreedingPool;
-        Random rnd;
         public MultiThreadRouletteSelection(int size)
         {
             this.selectionSize = size;
             BreedingPool = new List<Candidate>();
-            rnd = new Random();
             this.SelectionName = "MultiThreadRouletteSelection";
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
@@ -27,8 +25,6 @@ namespace MultiTask.Selection
             
             double FittnesSum = countAllFittnes(candList);
             ConcurrentQueue<RouletteResult> results = CreateResultsList(candList, FittnesSum);
-            double lastP = results.OrderBy(res => res.from).Last().to;
-            
             fillBreedingPool(results);
             return BreedingPool;
             
@@ -40,11 +36,11 @@ namespace MultiTask.Selection
             
             Parallel.For(0, selectionSize, i => {
                 double randomRouletteNumber;
-                randomRouletteNumber = RandomHelper.NextDouble();
+                randomRouletteNumber = RandomSelector.NextDouble();
                 Candidate temp = FindCandidate(results, randomRouletteNumber);
                 if (temp != null)
                     TempBreeginPool.Enqueue(temp);
-                else i--;
+
             });
             BreedingPool = TempBreeginPool.ToList();
         }

@@ -9,7 +9,6 @@ namespace Shared.AbstractClasses
 {
     public abstract class CrossoverType
     {
-        public Random rnd;
         public string CrossoverName;
         public float CrossoverChance;
         public abstract List<Candidate> Crossover(Candidate parentX, Candidate parentY);

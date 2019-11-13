@@ -20,18 +20,14 @@ namespace MultiTask.Crossover
         public override List<Candidate> Crossover(Candidate parentX, Candidate parentY)
         {
             List<Candidate> childrenList = new List<Candidate>();
-            float chance = (float)RandomHelper.NextDouble();
+            float chance = (float)RandomCrossover.NextDouble();
             if (chance < CrossoverChance)
             {
                 IntegrityHelper.checkGens(parentX);
                 IntegrityHelper.checkGens(parentY);
-                int startIndex = RandomHelper.Next(0, parentX.chromoson.Count() - 1);
-                int endIndex = RandomHelper.Next(0, parentX.chromoson.Count() - 1); //random indexes
-                                                                           // int startIndex = 3;
-                //while(startIndex==endIndex)
-                //{
-                //    endIndex= rnd.Next(0, parentX.chromoson.Count() - 1);
-                //}
+                int startIndex = RandomCrossover.Next(0, parentX.chromoson.Count() - 1);
+                int endIndex = RandomCrossover.Next(0, parentX.chromoson.Count() - 1); //random indexes
+
                 if (startIndex > endIndex)
                 {
                     int temp = startIndex;
@@ -71,7 +67,7 @@ namespace MultiTask.Crossover
                 childY.generation = (parentY.generation + 1);
                 childrenList.Add(childX);
                 childrenList.Add(childY);
-               // IntegrityHelper.checkGens(childrenList);
+                IntegrityHelper.checkGens(childrenList);
             }
             return childrenList;
         }
@@ -227,8 +223,8 @@ namespace MultiTask.Crossover
             int size = populationSize / 2;
             ParallelLoopResult res = Parallel.For(0, size,MultiTaskOptions.parallelOptCrossover,i =>
             {
-                parentX = RandomHelper.Next(0, population.Count());
-                parentY = RandomHelper.Next(0, population.Count());
+                parentX = RandomCrossover.Next(0, population.Count());
+                parentY = RandomCrossover.Next(0, population.Count());
                 var children = Crossover(population[parentX], population[parentY]);
                 newPopulation.Enqueue(children[0]);
                 newPopulation.Enqueue(children[1]);

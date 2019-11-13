@@ -42,26 +42,19 @@ namespace SingleTask.Solver
             population = randomPopulation(); //create random population
             //checkGens(population);  //DEBUG ONLY
             bestCandidate = population[0];
-            
+
             while (time.ElapsedMilliseconds < MaxTime * 1000)
             {
-                
-                findBest(population);
-              
-                getNextBestTwoMinutesCandidate(population);
-                time.Start();
-                //IntegrityHelper.checkCandidateDuplicates(population);
-               // IntegrityHelper.checkGens(population);
-                breedingPool = selector.generateBreedingPool(population);
-               // IntegrityHelper.checkCandidateDuplicates(breedingPool);
-              //  IntegrityHelper.checkGens(breedingPool);
-                newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
-            //    IntegrityHelper.checkCandidateDuplicates(newPopulation);
-                mutants = mutation.MutateList(newPopulation);
-          //      IntegrityHelper.checkGens(mutants);
-        //        IntegrityHelper.checkCandidateDuplicates(mutants);
-                //  IntegrityHelper.checkGens(mutants);
 
+
+                findBest(population);
+                time.Start();
+                breedingPool = selector.generateBreedingPool(population);
+                newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
+                time.Stop();
+                findBest(population);
+                time.Start();
+                mutants = mutation.MutateList(newPopulation);
                 population = mutants;
                 time.Stop();
             }
@@ -121,7 +114,7 @@ namespace SingleTask.Solver
             {
                 bestCandidate = best;
                
-                results.Add(findBest(population));
+                results.Add(bestCandidate);
                
             }
             return best;
